@@ -15,6 +15,13 @@
  * ============================================================================
  */
 
+/**
+ * ID de la hoja de cálculo que funciona como base de datos.
+ * Es la parte de la URL entre /d/ y /edit:
+ *   https://docs.google.com/spreadsheets/d/AQUI_ESTA_EL_ID/edit
+ */
+const SHEET_ID = '1F1qCqM9ujxy5WnWutwp4GLf0DQy2xs2BLeF0rIfBoDE';
+
 const APP = {
   TITULO: 'Sistema de Asistencia y Calificaciones',
   DESARROLLADOR: 'Mtro. Raúl Dionicio',
@@ -116,7 +123,7 @@ function soloPropietario_() {
 /** Instala o ACTUALIZA la estructura (se puede ejecutar de nuevo tras cada actualización del código). */
 function instalar() {
   soloPropietario_();
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SpreadsheetApp.openById(SHEET_ID);
   PropertiesService.getScriptProperties().setProperty('SS_ID', ss.getId());
   Object.keys(ESQUEMA).forEach(n => prepararHoja_(ss.getSheetByName(n) || ss.insertSheet(n), n));
   ['Hoja 1', 'Hoja1', 'Sheet1'].forEach(n => {
